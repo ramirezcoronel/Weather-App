@@ -40,7 +40,7 @@ window.addEventListener('load', ()=>{
 		})
 
 	}else{
-		locationBox.textContent = 'The app needs to use your location...';
+		alert('Oops.. looks like something went wrong.');
 	}
 	// Display data
 	function display(temperature,summary, location){
