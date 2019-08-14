@@ -74,7 +74,7 @@ window.addEventListener('load', ()=>{
 
 	// change from C to F and viceversa
 	function changeDegree(F,C){
-		if(degress.textContent === 'C°' || degress === ""){
+		if(degress.textContent === 'C°' || degress.textContent === ""){
 			degress.textContent = 'F';
 			degreeBox.textContent = F;
 		}else{
