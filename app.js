@@ -8,40 +8,44 @@ window.addEventListener('load', ()=>{
 	let lat;
 	let long;
 
-	if(navigator.geolocation){
-		navigator.geolocation.getCurrentPosition(position => {
-			long = position.coords.longitude;
-			lat = position.coords.latitude;
 
-			const proxy = `https://cors-anywhere.herokuapp.com/`;
-			const api = `${proxy}https://api.darksky.net/forecast/a6596f279200c3e40f033a7a2ceb5d06/${lat},${long}`;
+	const positionSucces = (position) => {
+		long = position.coords.longitude;
+		lat = position.coords.latitude;
 
-			// GET DATA 
-			fetch(api)
-				.then(data => data.json())
-				.then(data => {
-					const {temperature, summary, icon} = data.currently;
+		const proxy = `https://cors-anywhere.herokuapp.com/`;
+		const api = `${proxy}https://api.darksky.net/forecast/a6596f279200c3e40f033a7a2ceb5d06/${lat},${long}`;
 
-					console.log(data)
+		// GET DATA 
+		fetch(api)
+			.then(data => data.json())
+			.then(data => {
+				const {temperature, summary, icon} = data.currently;
 
-					// Celsius formula
-					let celsius = Math.floor((temperature - 35) * (5/9));
+				console.log(data)
 
-					display(celsius, summary, data.timezone);
+				// Celsius formula
+				let celsius = Math.floor((temperature - 35) * (5/9));
 
-					setColors(celsius);
+				display(celsius, summary, data.timezone);
 
-					setIcon(icon, document.getElementById('icon'));
+				setColors(celsius);
 
-					degreeSection.addEventListener('click',()=>{
-						changeDegree(temperature,celsius);
-					})
+				setIcon(icon, document.getElementById('icon'));
+
+				degreeSection.addEventListener('click',()=>{
+					changeDegree(temperature,celsius);
 				})
-		})
-
-	}else{
-		alert('Oops.. looks like something went wrong.');
+			})
 	}
+	const positionError = (error)=>{
+		summaryBox.textContent = error.message;
+		degreeBox.textContent = 'Make sure to allow ubication';
+	}
+
+
+	navigator.geolocation.getCurrentPosition(positionSucces, positionError);
+
 	// Display data
 	function display(temperature,summary, location){
 		locationBox.textContent = location;
