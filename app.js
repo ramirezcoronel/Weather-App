@@ -47,6 +47,7 @@ window.addEventListener('load', ()=>{
 		locationBox.textContent = location;
 		degreeBox.textContent = temperature;
 		summaryBox.textContent = summary;
+		degress.textContent = 'C°';
 	}
 
 	//Color palette depending on weather
@@ -74,7 +75,7 @@ window.addEventListener('load', ()=>{
 
 	// change from C to F and viceversa
 	function changeDegree(F,C){
-		if(degress.textContent === 'C°' || degress.textContent === ""){
+		if(degress.textContent === 'C°'){
 			degress.textContent = 'F';
 			degreeBox.textContent = F;
 		}else{
