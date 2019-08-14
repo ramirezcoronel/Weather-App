@@ -5,18 +5,20 @@ window.addEventListener('load', ()=>{
 	const degress = document.querySelector('.deg-type');
 	const summaryBox = document.querySelector('.summary');
 
+	const skycons = new Skycons({"color": "white"});
+
 	let lat;
 	let long;
 
-
+	
+	// function to fetch data
 	const positionSucces = (position) => {
 		long = position.coords.longitude;
 		lat = position.coords.latitude;
 
 		const proxy = `https://cors-anywhere.herokuapp.com/`;
 		const api = `${proxy}https://api.darksky.net/forecast/a6596f279200c3e40f033a7a2ceb5d06/${lat},${long}`;
-
-		// GET DATA 
+ 
 		fetch(api)
 			.then(data => data.json())
 			.then(data => {
@@ -37,13 +39,13 @@ window.addEventListener('load', ()=>{
 					changeDegree(temperature,celsius);
 				})
 			})
-	}
+	} // function to show errors occured
 	const positionError = (error)=>{
 		summaryBox.textContent = error.message;
 		degreeBox.textContent = 'Make sure to allow ubication';
 	}
 
-
+	// Calling functions that fetch data
 	navigator.geolocation.getCurrentPosition(positionSucces, positionError);
 
 	// Display data
@@ -71,7 +73,6 @@ window.addEventListener('load', ()=>{
 
 	// Skycons Icons
 	function setIcon(icon,iconID){
-		const skycons = new Skycons({"color": "white"});
 		let currentIcon = icon.replace(/-/g,"_").toUpperCase();
 		skycons.set(iconID, Skycons[currentIcon]);
 		skycons.play();
