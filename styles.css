@@ -32,10 +32,49 @@
 	color: var(--main);
 	cursor: pointer;
 }
+
+.bottom-section{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.c-btn,
+.f-btn{
+	cursor: pointer;
+	color: var(--main);
+	font-weight: 600;
+}
+
+.deg-toggle,
+.location,
+.deg-section,
+.summary{
+	animation: popIn ease .5s;
+}
+
+#activaded{
+	color: #333;
+	font-weight: 300;
+	cursor: default;
+}
+
 .deg{
 	font-weight: 600;
 	margin-right: 10px;
 }
 .summary{
 	text-align: right;
+}
+
+/*animations*/
+@keyframes popIn{
+	0%{
+		opacity: 0;
+		transform: scale(0.7);
+	}
+	100%{
+		opacity: 1;
+		transform: scale(1);
+	}
 }

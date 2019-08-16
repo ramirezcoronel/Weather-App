@@ -1,7 +1,11 @@
 window.addEventListener('load', ()=>{
 	const locationBox = document.querySelector('.location');
 	const degreeBox = document.querySelector('.deg');
-	const degreeSection = document.querySelector('.deg-section')
+	// const degreeSection = document.querySelector('.deg-section')
+
+	const cBtn = document.querySelector('.c-btn');
+	const fBtn = document.querySelector('.f-btn');
+
 	const degress = document.querySelector('.deg-type');
 	const summaryBox = document.querySelector('.summary');
 
@@ -35,8 +39,11 @@ window.addEventListener('load', ()=>{
 
 				setIcon(icon, document.getElementById('icon'));
 
-				degreeSection.addEventListener('click',()=>{
-					changeDegree(temperature,celsius);
+				cBtn.addEventListener('click',()=>{
+					changeDegree(temperature,celsius, cBtn);
+				})
+				fBtn.addEventListener('click',()=>{
+					changeDegree(temperature,celsius, fBtn);
 				})
 			})
 	} // function to show errors occured
@@ -79,13 +86,19 @@ window.addEventListener('load', ()=>{
 	}
 
 	// change from C to F and viceversa
-	function changeDegree(F,C){
-		if(degress.textContent === 'C°'){
-			degress.textContent = 'F';
-			degreeBox.textContent = F;
-		}else{
-			degress.textContent = 'C°';
-			degreeBox.textContent = C;
+	function changeDegree(F,C,element){
+		if(element.id !== "activaded"){
+			if(element.className === "c-btn"){
+				document.querySelector('#activaded').id = "";
+				degreeBox.textContent = C;
+				degress.textContent = "C°";
+				element.id = 'activaded';
+			}else{
+				document.querySelector('#activaded').id = "";
+				degreeBox.textContent = F;
+				degress.textContent = "F";
+				element.id = 'activaded';
+			}
 		}
 	}
 })
