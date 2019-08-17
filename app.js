@@ -87,8 +87,8 @@ window.addEventListener('load', ()=>{
 			root.style.setProperty('--main', '#4ca1af ');
 			root.style.setProperty('--secondary', '#c4e0e5');
 		}else{
-			root.style.setProperty('--main', '#FDC830');
-			root.style.setProperty('--secondary', '#F37335');
+			root.style.setProperty('--main', '#FFD200');
+			root.style.setProperty('--secondary', '#F7971E');
 		}
 	}
 
@@ -126,10 +126,10 @@ window.addEventListener('load', ()=>{
 	function displayWeatherInfo(humidity,precipProb,windSpeed){
 
 		let infoBox = document.querySelectorAll('.info-text');
-		let infoData = [humidity,precipProb,windSpeed];
+		let infoData = [humidity * 100 + "%",precipProb * 100 + "%",windSpeed + "mph"];
 
 		infoBox.forEach((box,index)=>{
-			box.textContent = infoData[index] + '%';
+			box.textContent = infoData[index];
 		})
 	}
 })
