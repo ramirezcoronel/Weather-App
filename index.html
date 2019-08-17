@@ -9,23 +9,43 @@
 </head>
 <body>
 	<div class="bg">
-		<canvas id="icon" width="128" height="128"></canvas>
-		<div class="weather-box">
-			<div class="location"></div>
-			<div class="deg-section">
-				<div class="deg"></div>
-				<span class="deg-type"></span>
-			</div>
-			
-			<div class="bottom-section">
-				<div class="deg-toggle">
-					<span id="activaded" class="c-btn">C°</span>|
-					<span class="f-btn">F</span>
+		<div class="weather-wrapper">
+			<canvas id="icon" width="128" height="128"></canvas>
+			<div class="box hidden">
+				<div class="location"></div>
+				<div class="deg-section">
+					<div class="deg"></div>
+					<span class="deg-type"></span>
 				</div>
+				
+				<div class="bottom-section">
+					<div class="deg-toggle">
+						<span id="activaded" class="c-btn">C°</span>|
+						<span class="f-btn">F</span>
+					</div>
 
-				<span class="summary"></span>
+					<span class="summary"></span>
+				</div>
 			</div>
 		</div>
+		<div class="info-wrapper">
+			<div class="box hidden">
+				<h2>Weather info:</h2>
+				<div class="info">
+					<div class="info-title">Humidity:</div>
+					<div class="info-text">34%</div>
+				</div>
+				<div class="info">
+					<div class="info-title">Precipitacion Probability:</div>
+					<div class="info-text">34%</div>
+				</div>
+				<div class="info">
+					<div class="info-title">Wind Speed:</div>
+					<div class="info-text">34%</div>
+				</div>
+			</div>
+		</div>
+		
 	</div>
 	<script src="app.js"></script>
 	<script src="skycons.js"></script>

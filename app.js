@@ -1,14 +1,15 @@
 window.addEventListener('load', ()=>{
 	const locationBox = document.querySelector('.location');
 	const degreeBox = document.querySelector('.deg');
-	// const degreeSection = document.querySelector('.deg-section')
-
+	// BUTTONS
 	const cBtn = document.querySelector('.c-btn');
 	const fBtn = document.querySelector('.f-btn');
-
+	// INFO INSIDE WEATHER BOX
 	const degress = document.querySelector('.deg-type');
 	const summaryBox = document.querySelector('.summary');
-
+	// SELECTING ALL HIDDEN ELEMENTS
+	const hiddenElements = document.querySelectorAll('.hidden');
+	// SKYCONS OBJECT
 	const skycons = new Skycons({"color": "white"});
 
 	let lat;
@@ -26,28 +27,20 @@ window.addEventListener('load', ()=>{
 		fetch(api)
 			.then(data => data.json())
 			.then(data => {
-				const {temperature, summary, icon} = data.currently;
+				const {temperature, summary, icon, humidity, precipProbability, windSpeed} = data.currently;
+
+				removeHidden(hiddenElements);
 
 				console.log(data)
+				displayWeatherBox(temperature,summary,data.timezone,icon);
+				
+				displayWeatherInfo(humidity,precipProbability,windSpeed);
 
-				// Celsius formula
-				let celsius = Math.floor((temperature - 35) * (5/9));
 
-				display(celsius, summary, data.timezone);
-
-				setColors(celsius);
-
-				setIcon(icon, document.getElementById('icon'));
-
-				cBtn.addEventListener('click',()=>{
-					changeDegree(temperature,celsius, cBtn);
-				})
-				fBtn.addEventListener('click',()=>{
-					changeDegree(temperature,celsius, fBtn);
-				})
 			})
 	} // function to show errors occured
 	const positionError = (error)=>{
+		document.querySelector('.box').classList.remove('hidden');
 		summaryBox.textContent = error.message;
 		degreeBox.textContent = 'Make sure to allow ubication';
 	}
@@ -55,8 +48,29 @@ window.addEventListener('load', ()=>{
 	// Calling functions that fetch data
 	navigator.geolocation.getCurrentPosition(positionSucces, positionError);
 
-	// Display data
-	function display(temperature,summary, location){
+
+	// FUNCTIONS TO DISPLAY WEATHER BOX DATA
+	function displayWeatherBox(temp,summary,timezone,icon){
+		// Celsius formula
+		let celsius = Math.floor((temp - 35) * (5/9));
+
+		displayWeatherData(celsius, summary, timezone);
+
+		setColors(celsius);
+
+		setIcon(icon, document.getElementById('icon'));
+
+		cBtn.addEventListener('click',()=>{
+			changeDegree(temp,celsius, cBtn);
+		})
+		fBtn.addEventListener('click',()=>{
+			changeDegree(temp,celsius, fBtn);
+		})
+	}
+
+	// display function
+	function displayWeatherData(temperature,summary, location){
+		// display data
 		locationBox.textContent = location;
 		degreeBox.textContent = temperature;
 		summaryBox.textContent = summary;
@@ -100,6 +114,23 @@ window.addEventListener('load', ()=>{
 				element.id = 'activaded';
 			}
 		}
+	}
+
+	function removeHidden(element){
+		element.forEach((el)=>{
+			el.classList.remove('hidden')
+		})
+	}
+
+	// FUNCTIONS TO DISPLAY WEATHER INFO DATA
+	function displayWeatherInfo(humidity,precipProb,windSpeed){
+
+		let infoBox = document.querySelectorAll('.info-text');
+		let infoData = [humidity,precipProb,windSpeed];
+
+		infoBox.forEach((box,index)=>{
+			box.textContent = infoData[index] + '%';
+		})
 	}
 })
 
